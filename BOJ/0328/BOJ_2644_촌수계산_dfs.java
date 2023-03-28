@@ -12,25 +12,21 @@ public class BOJ_2644_촌수계산_dfs {
 	static int n;
 	static int p1, p2;
 	static int m;
-	static int cnt;
-	static int flag;
+	static int flag = -1;
 	
 	static List<Integer>[] graph;
 	static boolean[] visited;
 	
 	public static void dfs(int x, int cnt) {
 		visited[x] = true;
+		if (x == p2) {
+			flag = cnt;
+			return;
+		}
 		for(int i=0; i<graph[x].size(); i++) {
 			int next = graph[x].get(i);
 			if(!visited[next]) {
-				cnt++;
-				if(next == p2) {
-					flag = 1;
-					System.out.println(cnt);
-					return;
-				}
-				dfs(next, cnt);
-				cnt--;
+				dfs(next, cnt+1);
 			}
 		}
 	}
@@ -58,8 +54,6 @@ public class BOJ_2644_촌수계산_dfs {
 		
 		dfs(p1, 0);
 		
-		if(flag != 1) {
-			System.out.println(-1);
-		}
+		System.out.println(flag);
 	}
 }
